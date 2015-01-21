@@ -48,6 +48,6 @@
 	for (var a in WS.wsAPI) ws[a]=WS.wsAPI[a];
 	//如果有 JSLite ，则同样扩展到 JSLite ?类似jQuery
 	// http://jaywcjlove.github.io/JSLite/
-	if( window.JSLite ) window.JSLite.ws = ws;
-	else window.ws = ws
+	if(window.JSLite) window.JSLite.ws = ws;
+	if(!window.ws) window.ws = ws
 })(window);
