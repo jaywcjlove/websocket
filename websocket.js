@@ -22,10 +22,10 @@
 				this.close();
 			},
 			close:function(callback){
-				WS.ws = null;
 				WS.ws.onclose = function(str) {
 					if(WS.isFunction(callback)==true) callback(str);
 				};
+				WS.ws = null;
 			},
 			error:function(callback){
 				WS.ws.onerror = function (error) {
@@ -44,7 +44,8 @@
 
 	};
 	//IE不提供这个__proto__原型对象，可以这里判断
-	ws.__proto__ = WS.wsAPI;
+	// ws.__proto__ = WS.wsAPI;
+	for (var a in WS.wsAPI) ws[a]=WS.wsAPI[a];
 	//如果有 JSLite ，则同样扩展到 JSLite ?类似jQuery
 	// http://jaywcjlove.github.io/JSLite/
 	if( window.JSLite ) window.JSLite.ws = ws;
