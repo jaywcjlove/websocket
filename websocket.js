@@ -3,29 +3,34 @@
 		ws:null,
 		wsAPI:{
 			connect: function(url, callback ,error){
-				if (WS.ws !== null) return WS.isFunction(callback)==true ? error("您已连接！") :alert("您已连接！");
+				if (WS.ws !== null) {
+					if(error) error("连接失败！");
+					return this;
+				}
 				WS.ws = new WebSocket(url);
 				WS.ws.onopen = function () {
 					if(WS.isFunction(callback)==true) callback('连接成功!');
-				};
+				}
+				return this;
 			},
 			message: function(callback){//连接监听器
-				WS.ws.onmessage = function(str) {
-					if(WS.isFunction(callback)==true) callback(str);
-				};
+				WS.ws.onmessage = function(e) {
+					if(WS.isFunction(callback)==true) callback(e.data);
+				}
+				return this;
 			},
 			send:function(str){
-				WS.ws.send(str)
+				if(WS.ws.readyState==1) WS.ws.send(str);
 			},
-			disconnect:function(callback){ //关闭连接的监听器
+			disconnect:function(callback){//关闭连接的监听器
 				if (WS.ws !== null) return WS.isFunction(callback)==true ? callback("您已连接！") :alert("您已连接！");
 				this.close();
 			},
 			close:function(callback){
+				WS.ws = null;
 				WS.ws.onclose = function(str) {
 					if(WS.isFunction(callback)==true) callback(str);
 				};
-				WS.ws = null;
 			},
 			error:function(callback){
 				WS.ws.onerror = function (error) {
