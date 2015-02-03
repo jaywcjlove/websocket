@@ -3,7 +3,7 @@
 		ws:null,
 		wsAPI:{
 			connect: function(url, callback ,error){
-				if (WS.ws !== null) {
+				if (!url || WS.ws !== null) {
 					if(error) error("连接失败！");
 					return this;
 				}
