@@ -2,15 +2,22 @@
 	var WS = {
 		ws:null,
 		wsAPI:{
-			connect: function(url, callback ,error){
+			connect: function(url, callback, close, error){
 				if (!url || WS.ws !== null) {
 					if(error) error("连接失败！");
 					return this;
 				}
 				WS.ws = new WebSocket(url);
-				WS.ws.onopen = function () {
+				WS.ws.onopen = function (evn) {
+					console.log("onopen:",evn)
 					if(WS.isFunction(callback)==true) callback('连接成功!');
 				}
+				WS.ws.onclose = function(evn) {
+					if(WS.isFunction(close)==true) close(evn);
+				};
+				WS.ws.onerror = function (evn) {
+					if(WS.isFunction(error)==true) error(evn);
+				};
 				return this;
 			},
 			message: function(callback){//连接监听器
@@ -21,22 +28,16 @@
 			},
 			send:function(str){
 				if(WS.ws.readyState==1) WS.ws.send(str);
+				if(WS.ws.readyState==2) WS.close();
+				if(WS.ws.readyState==3) WS.close();
 			},
 			disconnect:function(callback){//关闭连接的监听器
-				if (WS.ws !== null) return WS.isFunction(callback)==true ? callback("您已连接！") :alert("您已连接！");
-				this.close();
-			},
-			close:function(callback){
-				WS.ws = null;
-				WS.ws.onclose = function(str) {
-					if(WS.isFunction(callback)==true) callback(str);
-				};
-			},
-			error:function(callback){
-				WS.ws.onerror = function (error) {
-					if(WS.isFunction(callback)==true) callback(error);
-				};
+				if (WS.ws !== null) return WS.isFunction(callback)==true ? callback("您已经断开了！") :WS.close();
 			}
+		},
+		close:function(callback){
+			WS.ws.close()
+			WS.ws = null;
 		},
 		isFunction:function(funcName){
 		    try {
