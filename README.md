@@ -2,11 +2,13 @@
 
 
 ### connect 连接websocket
-ws.connect(url, callback ,error)
+ws.connect(url, callback, close, error)
 
 ```js
 ws.connect('ws://127.0.0.1:8080',function(str){
 //连接成功！
+},function(str){
+//关闭触发！
 },function(str){
 //连接失败！
 })
@@ -36,13 +38,3 @@ ws.disconnect(function(data){
 
 })
 ```
-
-### 关闭连接的监听器
-//ws.close(callback) ===  ws.disconnect(callback)
-
-```js
-ws.close(function(data){
-
-})
-```
-
