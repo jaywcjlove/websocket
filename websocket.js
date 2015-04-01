@@ -9,20 +9,19 @@
 				}
 				WS.ws = new WebSocket(url);
 				WS.ws.onopen = function (evn) {
-					console.log("onopen:",evn)
-					if(WS.isFunction(callback)==true) callback('连接成功!');
+					if(WS.isFunction(callback)===true) callback('连接成功!');
 				}
 				WS.ws.onclose = function(evn) {
-					if(WS.isFunction(close)==true) close(evn);
+					if(WS.isFunction(close)===true) close(evn);
 				};
 				WS.ws.onerror = function (evn) {
-					if(WS.isFunction(error)==true) error(evn);
+					if(WS.isFunction(error)===true) error(evn);
 				};
 				return this;
 			},
 			message: function(callback){//连接监听器
 				WS.ws.onmessage = function(e) {
-					if(WS.isFunction(callback)==true) callback(e.data);
+					if(WS.isFunction(callback)===true) callback(e.data);
 				}
 				return this;
 			},
@@ -32,7 +31,7 @@
 				if(WS.ws.readyState==3) WS.close();
 			},
 			disconnect:function(callback){//关闭连接的监听器
-				if (WS.ws !== null) return WS.isFunction(callback)==true ? callback("您已经断开了！") :WS.close();
+				if (WS.ws !== null) return WS.isFunction(callback)===true ? callback("您已经断开了！") :WS.close();
 			}
 		},
 		close:function(callback){
@@ -41,7 +40,7 @@
 		},
 		isFunction:function(funcName){
 		    try {
-		    	if (typeof(eval(funcName)) == "function") {return true;}
+		    	if (typeof(eval(funcName)) === "function") {return true;}
 		    } catch(e) {}
 		    return false;
 		}
