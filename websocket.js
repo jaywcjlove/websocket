@@ -23,6 +23,9 @@
 				};
 				return this;
 			},
+            isConnect:function() {
+                return WS.isConnects ;
+            },
 			message: function(callback){//连接监听器
 				WS.ws.onmessage = function(e) {
 					if(WS.isFunction(callback)===true) callback(e.data);
