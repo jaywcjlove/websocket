@@ -1,20 +1,24 @@
 ;(function(window){
 	var WS = {
 		ws:null,
+		isConnects:false,
 		wsAPI:{
 			connect: function(url, callback, close, error){
 				if (!url || WS.ws !== null) {
 					if(error) error("连接失败！");
+					WS.isConnects=false
 					return this;
 				}
 				WS.ws = new WebSocket(url);
 				WS.ws.onopen = function (evn) {
-					if(WS.isFunction(callback)===true) callback('连接成功!');
+					if(WS.isFunction(callback)===true) callback('连接成功!'),WS.isConnects=true;
 				}
 				WS.ws.onclose = function(evn) {
+					WS.isConnects=false
 					if(WS.isFunction(close)===true) close(evn);
 				};
 				WS.ws.onerror = function (evn) {
+					WS.isConnects=false
 					if(WS.isFunction(error)===true) error(evn);
 				};
 				return this;
