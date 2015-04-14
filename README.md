@@ -38,3 +38,10 @@ ws.disconnect(function(data){
 
 })
 ```
+
+### 判断是websocket否连接
+//ws.isConnect()  //=> bool
+
+```js
+ws.isConnect()  //=> true | false
+```
