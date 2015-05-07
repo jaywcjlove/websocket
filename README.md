@@ -1,5 +1,12 @@
-## websocket APIs
+# websocket
 
+[![GitHub issues](https://img.shields.io/github/issues/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/issues) [![GitHub forks](https://img.shields.io/github/forks/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/network) [![GitHub stars](https://img.shields.io/github/stars/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/stargazers)
+
+## 下载
+
+```
+bower info websocket
+```
 
 ### connect 连接websocket
 ws.connect(url, callback, close, error)
