@@ -12,11 +12,11 @@ bower info websocket
 ws.connect(url, callback, close, error)
 
 ```js
-ws.connect('ws://127.0.0.1:8080',function(str){
+ws.connect('ws://127.0.0.1:8080',function(handlers,evn){
 //连接成功！
-},function(str){
+},function(handlers,evn){
 //关闭触发！
-},function(str){
+},function(handlers,evn){
 //连接失败！
 })
 ```
@@ -25,8 +25,8 @@ ws.connect('ws://127.0.0.1:8080',function(str){
 //ws.message(callback)
 
 ```js
-ws.message(function(data){
-
+ws.message(function(evn,handlers){
+    console.log(evn.data,handlers)
 })
 ```
 
@@ -34,7 +34,7 @@ ws.message(function(data){
 //ws.send()
 
 ```js
-ws.send('{}')
+ws.send('{}') //=>handlers
 ```
 
 ### 关闭连接的监听器
