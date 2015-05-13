@@ -1,65 +1,91 @@
+//websocket 通讯
 ;(function(window){
-	var WS = {
-		ws:null,
-		isConnects:false,
-		wsAPI:{
-			connect: function(url, callback, close, error){
-				if (!url || WS.ws !== null) {
-					if(error) error("连接失败！");
-					WS.isConnects=false
-					return this;
-				}
-				WS.ws = new WebSocket(url);
-				WS.ws.onopen = function (evn) {
-					if(WS.isFunction(callback)===true) callback('连接成功!'),WS.isConnects=true;
-				}
-				WS.ws.onclose = function(evn) {
-					WS.isConnects=false
-					if(WS.isFunction(close)===true) close(evn);
-				};
-				WS.ws.onerror = function (evn) {
-					WS.isConnects=false
-					if(WS.isFunction(error)===true) error(evn);
-				};
-				return this;
-			},
-            isConnect:function() {
-                return WS.isConnects ;
+    var handlers = {},WS
+    function isFunction(funcName){
+        try {
+            if (typeof(eval(funcName)) == "function") {return true;}
+        } catch(e) {}
+        return false;
+    }
+    function parseArguments (url, callback, close, error) {
+        return {
+            url:url,
+            callback:callback,
+            close:close,
+            error:error
+        }
+    }
+    WS = {
+        wsAPI:{
+            connect: function(url, callback, callbackclose, callbackerror){
+                handlers = parseArguments.apply(null,arguments)
+                if (!url) {
+                    handlers.ws = null
+                    handlers.message="连接失败！";
+                    handlers.isConnects=false
+                    if(error) error(handlers);
+                    return this;
+                }
+                handlers.ws = new WebSocket(url);
+                handlers.ws.onopen = function (evn) {
+                    handlers.message="连接成功！";
+                    if(isFunction(callback)===true) {
+                        callback(handlers,evn);
+                        handlers.isConnects=true; 
+                    }
+                };
+                handlers.ws.onclose = function(evn) {
+                    handlers.isConnects=false
+                    handlers.message="连接关闭！";
+                    if(isFunction(callbackclose)===true) callbackclose(handlers,evn);
+                };
+                handlers.ws.onerror = function (evn) {
+                    handlers.isConnects=false
+                    handlers.message="连接发生错误";
+                    if(isFunction(callbackerror)===true) callbackerror(handlers,evn);
+                };
+                return this;
             },
-			message: function(callback){//连接监听器
-				WS.ws.onmessage = function(e) {
-					if(WS.isFunction(callback)===true) callback(e.data);
-				}
-				return this;
-			},
-			send:function(str){
-				if(WS.ws.readyState==1) WS.ws.send(str);
-				if(WS.ws.readyState==2) WS.close();
-				if(WS.ws.readyState==3) WS.close();
-			},
-			disconnect:function(callback){//关闭连接的监听器
-				if (WS.ws !== null) return WS.isFunction(callback)===true ? callback("您已经断开了！") :WS.close();
-			}
-		},
-		close:function(callback){
-			WS.ws.close()
-			WS.ws = null;
-		},
-		isFunction:function(funcName){
-		    try {
-		    	if (typeof(eval(funcName)) === "function") {return true;}
-		    } catch(e) {}
-		    return false;
-		}
-	},
-	ws=function (key, data){
-
-	};
-	//IE不提供这个__proto__原型对象，可以这里判断
-	// ws.__proto__ = WS.wsAPI;
-	for (var a in WS.wsAPI) ws[a]=WS.wsAPI[a];
-	//如果有 JSLite ，则同样扩展到 JSLite ?类似jQuery
-	// http://jaywcjlove.github.io/JSLite/
-	if(window.JSLite) window.JSLite.ws = ws;
-	if(!window.ws) window.ws = ws
-})(window);
+            isConnect:function() {
+                return handlers.isConnects;
+            },
+            message: function(callback){//连接监听器
+                handlers.ws.onmessage = function(e) {
+                    if(isFunction(callback)===true) callback(e.data);
+                };
+                return this;
+            },
+            send:function(str){
+                if(!handlers.ws){
+                    handlers.isConnects=false
+                    handlers.message="连接发生错误";
+                    handlers.error(handlers);
+                }else{
+                    switch(handlers.ws.readyState){
+                        case 1:handlers.ws.send(str);break;
+                        case 2:WS.close();break;
+                        case 3:WS.close();break;
+                    }
+                }
+                return handlers.ws;
+            },
+            disconnect:function(callback){//关闭连接的监听器
+                handlers.message="断开连接了!";
+                handlers.isConnects=false
+                if (handlers.ws !== null) return isFunction(callback)===true ? callback("您已经断开了！") :WS.close();
+            }
+        },
+        close:function(callback){
+            handlers.ws.close(),
+            handlers.ws = null;
+        }
+    },
+    ws=function (key, data){};
+    //IE不提供这个__proto__原型对象，可以这里判断
+    // ws.__proto__ = WS.wsAPI;
+    for (var a in WS.wsAPI) ws[a]=WS.wsAPI[a];
+    //如果有 JSLite ，则同样扩展到 JSLite ?类似jQuery
+    // http://jaywcjlove.github.io/JSLite/
+    if(window.JSLite) window.JSLite.ws = ws;
+    if(!window.ws) window.ws = ws
+})(this);
