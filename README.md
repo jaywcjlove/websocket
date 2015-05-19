@@ -16,6 +16,9 @@ ws.connect('ws://127.0.0.1:8080',function(handlers,evn){
 //连接成功！
 },function(handlers,evn){
 //关闭触发！
+    if(handlers.closeType === "kick"){
+        console.log('这个是踢下线！的关闭！')
+    }
 },function(handlers,evn){
 //连接失败！
 })
@@ -38,10 +41,10 @@ ws.send('{}') //=>handlers
 ```
 
 ### 关闭连接的监听器
-//ws.disconnect(callback)
+//ws.disconnect(type,callback) 关闭类型
 
 ```js
-ws.disconnect(function(data){
+ws.disconnect("kick",function(data){
 
 })
 ```
