@@ -69,14 +69,16 @@
                 }
                 return handlers.ws;
             },
-            disconnect:function(callback){//关闭连接的监听器
+            disconnect:function(ty,callback){//关闭连接的监听器
                 handlers.message="断开连接了!";
+                
                 handlers.isConnects=false
-                if (handlers.ws !== null) return isFunction(callback)===true ? callback(handlers) :WS.close();
+                if (handlers.ws !== null) return isFunction(callback)===true ? callback(handlers) :WS.close(ty);
             }
         },
-        close:function(callback){
-            handlers.ws.close(),
+        close:function(ty){
+            handlers.closeType=ty
+            handlers.ws.close()
             handlers.ws = null;
         }
     },
