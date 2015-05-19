@@ -1,0 +1,19 @@
+{
+  "name": "websocketjs",
+  "version": "1.0.0",
+  "description": "websocket APIs simple package",
+  "main": "websocket.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaywcjlove/websocket.git"
+  },
+  "keywords": [
+    "websocket"
+  ],
+  "author": "kenny wang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaywcjlove/websocket/issues"
+  },
+  "homepage": "https://github.com/jaywcjlove/websocket"
+}
