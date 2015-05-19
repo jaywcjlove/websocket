@@ -5,7 +5,11 @@
 ## 下载
 
 ```
-bower info websocket
+bower install websocket
+```
+
+```
+npm install websocketjs
 ```
 
 ### connect 连接websocket
