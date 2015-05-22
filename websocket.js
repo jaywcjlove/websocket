@@ -35,11 +35,13 @@
                     }
                 };
                 handlers.ws.onclose = function(evn) {
+                    handlers.ws = null
                     handlers.isConnects=false
                     handlers.message="连接关闭！";
                     if(isFunction(callbackclose)===true) callbackclose(handlers,evn);
                 };
                 handlers.ws.onerror = function (evn) {
+                    handlers.ws = null
                     handlers.isConnects=false
                     handlers.message="连接发生错误";
                     if(isFunction(callbackerror)===true) callbackerror(handlers,evn);
@@ -71,7 +73,6 @@
             },
             disconnect:function(ty,callback){//关闭连接的监听器
                 handlers.message="断开连接了!";
-                
                 handlers.isConnects=false
                 if (handlers.ws !== null) return isFunction(callback)===true ? callback(handlers) :WS.close(ty);
             }
