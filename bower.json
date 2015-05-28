@@ -1,12 +1,13 @@
 {
   "name": "websocket",
   "main": "websocket.js",
-  "version": "0.0.0",
+  "version": "1.1.0",
   "authors": [
     "jaywcjlove <398188662@qq.com>"
   ],
   "keywords": [
-    "websocket"
+    "websocket",
+    "socket"
   ],
   "license": "MIT",
   "homepage": "https://github.com/jaywcjlove/websocket",
