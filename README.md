@@ -12,50 +12,55 @@ bower install websocket
 npm install websocketjs
 ```
 
-### connect 连接websocket
-ws.connect(url, callback, close, error)
 
-```js
-ws.connect('ws://127.0.0.1:8080',function(handlers,evn){
-//连接成功！
-},function(handlers,evn){
-//关闭触发！
-    if(handlers.closeType === "kick"){
-        console.log('这个是踢下线！的关闭！')
-    }
-},function(handlers,evn){
-//连接失败！
-})
+## 测试
+
+进入 `test` 目录 在命令行中运行 `node sever.js` 会输出下面内容  
+
+```
+--WebSocket-------------
+WebSocket address: ws://127.0.0.1:3001
+WebSocket has started.
+--Server----------------
+Server address: http://127.0.0.1:8080
+Server running... press ctrl-c to stop.
+Server has started.
+------------------------
 ```
 
-### message 一个连接监听器
-//ws.message(callback)
+
+## 接口调用
 
 ```js
-ws.message(function(evn,handlers){
-    console.log(evn.data,handlers)
-})
-```
+var socket = new ws('ws://127.0.0.1:3001'),
+    str = "JSLite.io";
 
-### send 通过Socket发送一条消息到服务器
-//ws.send()
+socket.onconnecting = function(evn){
+    console.log("socket:onconnecting:",evn);
+    // sendMsg("wcj");
+    
+}
+socket.onopen = function(evn){
+    console.log("socket:onopen:",evn);
+    log('发了个消息！"'+str+'"');
+    sendMsg(str);
+    
+}
+socket.onclose = function(evn){
+    console.log("socket.onclose:",evn);
+    log('WebSocket 被你关闭了！，您老人家再也没有办法建立连接了?');
+    
+}
+socket.onmessage = function(evn){
+    console.log("socket:onmessage:",evn);
+    log('收到消息！"'+evn.data+'"');
+    // socket.close()
+    
+}
 
-```js
-ws.send('{}') //=>handlers
-```
+function sendMsg (str) {
+    console.log("socket:sendMsg:",socket);
+    socket.send(str);
+}
 
-### 关闭连接的监听器
-//ws.disconnect(type,callback) 关闭类型
-
-```js
-ws.disconnect("kick",function(data){
-
-})
-```
-
-### 判断是websocket否连接
-//ws.isConnect()  //=> bool
-
-```js
-ws.isConnect()  //=> true | false
 ```
