@@ -71,9 +71,23 @@ socket.readyState //=>1
 
 websocket关闭会执行这个事件
 
-### onclose
+### send
 
-websocket关闭会执行这个事件
+通过websocket向后端发送消息。
+
+
+### close
+关闭 WebSocket 连接／连接尝试，若连接已为 CLOSED，此方法沒有作用。
+
+```js
+socket.close(1000,'kiki');
+```
+
+#### code 可选
+表示状态码，状态代码用以解释连接关闭的原因。弱未指定参数，预设值为1000（表示正常的「事物完结 transaction complete 」关闭），参考 [CloseEvent](https://developer.mozilla.org/zh-TW/docs/WebSockets/WebSockets_reference/CloseEvent#.e7.8b.80.e6.85.8b.e4.bb.a3.e7.a2.bc) 页面的 [状态码列表](https://developer.mozilla.org/zh-TW/docs/WebSockets/WebSockets_reference/CloseEvent#.e7.8b.80.e6.85.8b.e4.bb.a3.e7.a2.bc)，有所有的合法状态码值。
+
+####reason 可选
+解释连接断开的原因人类可读字符串，字符串不可大于 123 个 UTF-8 字符串
 
 
 ## 完整例子
