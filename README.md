@@ -2,6 +2,9 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/issues) [![GitHub forks](https://img.shields.io/github/forks/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/network) [![GitHub stars](https://img.shields.io/github/stars/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/stargazers) [![](https://img.shields.io/github/release/jaywcjlove/websocket.svg)](https://github.com/jaywcjlove/websocket/releases)
 
+
+ws 对象提供了建立、管理 WebSocket 服务器的握手连接的 API，它也有在连接中传送、接收数据的能力。
+
 ## 下载
 
 ```
@@ -15,7 +18,7 @@ npm install websocketjs
 
 ## 测试
 
-进入 `test` 目录 在命令行中运行 `node sever.js` 会输出下面内容，`127.0.0.1:8080` 是打开 `index.html` 页面 `ws://127.0.0.1:3001` 
+进入 `test` 目录 在命令行中运行 `node sever.js` 会输出下面内容，`127.0.0.1:8080` 是打开 `index.html` 页面， `ws://127.0.0.1:3001` 
 
 ```
 --WebSocket-------------
