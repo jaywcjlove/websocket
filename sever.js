@@ -30,7 +30,7 @@ http.createServer(function (req, res) {
         pathname+="/";
     }
     if (pathname.charAt(pathname.length-1)=="/"){
-        pathname+="index.html";
+        pathname+="test/index.html";
     }
 
     path.exists(pathname,function(exists){

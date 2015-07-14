@@ -14,7 +14,7 @@
 
 
 <div id="output"></div>
-<script type="text/javascript" src="websocket.min.js"></script>
+<script type="text/javascript" src="build/websocket.min.js"></script>
 <script>
 if (window.WebSocket){
     log("此浏览器支持WebSocket的！");
@@ -28,7 +28,7 @@ var socket = new ws('ws://127.0.0.1:3001'),
 
 socket.onconnecting = function(evn){
     console.log("socket:onconnecting:",evn);
-    // sendMsg("wcj");
+    sendMsg("wcj");
     
 }
 socket.onopen = function(evn){
