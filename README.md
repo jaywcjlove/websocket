@@ -18,7 +18,9 @@ npm install websocketjs
 
 ## 测试
 
-进入 `test` 目录 在命令行中运行 `node sever.js` 会输出下面内容，`127.0.0.1:8080` 是打开 `index.html` 页面， `ws://127.0.0.1:3001` 
+进入 `websocket` 根目录 在命令行中运行 `grunt` 会输出下面内容，`127.0.0.1:8080` 是打开 `index.html` 页面， `ws://127.0.0.1:3001` 
+
+同时自动压缩 `websocket.js`
 
 ```
 --WebSocket-------------
