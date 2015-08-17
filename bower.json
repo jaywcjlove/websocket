@@ -1,7 +1,7 @@
 {
   "name": "websocket",
   "main": "websocket.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "authors": [
     "jaywcjlove <398188662@qq.com>"
   ],
