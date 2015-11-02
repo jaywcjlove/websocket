@@ -2,7 +2,7 @@
   "name": "websocketjs",
   "version": "1.1.1",
   "description": "websocket APIs simple package",
-  "main": "websocket.js",
+  "main": "lib/websocket.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jaywcjlove/websocket.git"
