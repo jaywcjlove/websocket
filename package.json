@@ -4,7 +4,7 @@
   "description": "websocket APIs simple package",
   "main": "lib/websocket.js",
   "scripts": {
-    "start": "grunt --inspect"
+    "start": "grunt"
   },
   "repository": {
     "type": "git",

@@ -37,10 +37,10 @@ module.exports = function (grunt) {
     },
     nodemon: {
       dev: {
-        script: 'sever.js',
+        script: 'server.js',
         options: {
           args: ['dev'],
-          nodeArgs: ['--inspect'],
+          // nodeArgs: ['--inspect'],
           callback: function (nodemon) {
             return nodemon.on('log', function (event) {
               return console.log(event.colour);
