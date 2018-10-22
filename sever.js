@@ -33,8 +33,8 @@ http.createServer(function (req, res) {
         pathname+="test/index.html";
     }
 
-    path.exists(pathname,function(exists){
-        if(exists){
+    fs.stat(pathname,function(err){
+        if (!err){
             switch(path.extname(pathname)){
                 case ".html":
                     res.writeHead(200, {"Content-Type": "text/html"});
@@ -67,11 +67,11 @@ http.createServer(function (req, res) {
         }
     });
 
-}).listen(8080, "127.0.0.1");
+}).listen(8090, "127.0.0.1");
 
 
 console.log("--Server----------------")
-console.log("Server address: http://127.0.0.1:8080")
+console.log("Server address: http://127.0.0.1:8090")
 console.log("Server running... press ctrl-c to stop.")
 console.log("Server has started.")
 console.log("------------------------")
