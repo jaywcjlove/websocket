@@ -35,6 +35,7 @@ Server has started.
 
 
 ## 接口调用
+
 将原生websocket调用 `socket = new WebSocket(url,protocol)` 更换成
 `socket = new ws(url,protocol)`
 
@@ -130,5 +131,10 @@ function sendMsg (str) {
     console.log("socket:sendMsg:",socket);
     socket.send(str);
 }
+```
 
+## 开发测试
+
+```bash
+npm start
 ```
